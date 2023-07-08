@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: be
+  profiles:
+    include: data
+server:
+  port: 8081

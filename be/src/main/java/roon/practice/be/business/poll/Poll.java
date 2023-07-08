@@ -15,10 +15,11 @@ import roon.practice.be.business.poll.selection.Selection;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class SimplePoll {
+public class Poll {
+
 	@EmbeddedId
 	@Column(columnDefinition = "VARCHAR(24)", nullable = false)
-	private SimplePollId id;
+	private PollId id;
 
 	@Column(columnDefinition = "VARCHAR(24)", nullable = false)
 	private String title;
@@ -27,6 +28,13 @@ public class SimplePoll {
 	private String host;
 
 	@ElementCollection
-	@CollectionTable(name = "selection_list", joinColumns = @JoinColumn(name="id"))
+	@CollectionTable(name = "selection_list", joinColumns = @JoinColumn(name = "id"))
 	private List<Selection> selectionList;
+
+	public Poll(PollId id, String title, String host, List<Selection> selectionList) {
+		this.id = id;
+		this.title = title;
+		this.host = host;
+		this.selectionList = selectionList;
+	}
 }

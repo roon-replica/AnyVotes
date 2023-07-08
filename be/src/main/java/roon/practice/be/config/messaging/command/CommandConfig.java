@@ -14,7 +14,6 @@ import roon.practice.be.service.Command;
 public class CommandConfig {
 
 	public static final String COMMAND_CHANNEL = "CommandChannel";
-	private static final String COMMAND_SUFFIX = "Command";
 
 	@Bean(COMMAND_CHANNEL)
 	public MessageChannel commandChannel() {
@@ -27,11 +26,8 @@ public class CommandConfig {
 				.log()
 				.channel(channels -> channels.executor(Executors.newCachedThreadPool()))
 				.<Command, String>route(command -> command.getClass().getSimpleName(), mapping -> mapping.subFlowMapping(
-						"CreateSimplePollCommand", sf -> sf.channel(channels -> channels.queue(10))
-								.publishSubscribeChannel(consumer -> consumer
-										.subscribe(sf2 -> sf2.handle(message -> log.info("[subscriber-1] message={}", message)))
-										.subscribe(sf2 -> sf2.handle(message -> log.info("[subscriber-2] message={}", message)))
-								))
+						"CreatePollCommand", sf -> sf.channel("CreatePollCommand"))
 				).get();
 	}
+
 }

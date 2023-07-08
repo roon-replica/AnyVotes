@@ -2,23 +2,23 @@ package roon.practice.be.interfaces.client;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import roon.practice.be.interfaces.client.request.CreateSimplePollRequest;
+import roon.practice.be.interfaces.client.request.CreatePollRequest;
 import roon.practice.be.interfaces.client.response.CreatePollResult;
 import roon.practice.be.service.CommandGateway;
-import roon.practice.be.service.simplepoll.CreateSimplePollCommand;
+import roon.practice.be.service.poll.CreatePollCommand;
 
 @ClientInterface
-public class SimplePollController {
+public class PollController {
 
 	private final CommandGateway commandGateway;
 
-	public SimplePollController(CommandGateway commandGateway) {
+	public PollController(CommandGateway commandGateway) {
 		this.commandGateway = commandGateway;
 	}
 
 	@PostMapping("/create-poll")
-	public CreatePollResult createPoll(@RequestBody CreateSimplePollRequest request) {
-		commandGateway.send(new CreateSimplePollCommand(request.title(), request.host(), request.selectionList()));
+	public CreatePollResult createPoll(@RequestBody CreatePollRequest request) {
+		commandGateway.send(new CreatePollCommand(request.title(), request.host(), request.selectionList()));
 		return null;
 	}
 }
