@@ -1,9 +1,9 @@
-package roon.practice.be.interfaces.client;
+package roon.practice.be.client.user;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import roon.practice.be.interfaces.client.request.CreatePollRequest;
-import roon.practice.be.interfaces.client.response.CreatePollResult;
+import roon.practice.be.client.user.request.CreatePollRequest;
+import roon.practice.be.client.user.response.CreatePollResult;
 import roon.practice.be.service.CommandGateway;
 import roon.practice.be.service.poll.CreatePollCommand;
 

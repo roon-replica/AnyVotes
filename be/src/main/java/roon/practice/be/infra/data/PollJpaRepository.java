@@ -1,4 +1,4 @@
-package roon.practice.be.infra.storage;
+package roon.practice.be.infra.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import roon.practice.be.business.poll.Poll;

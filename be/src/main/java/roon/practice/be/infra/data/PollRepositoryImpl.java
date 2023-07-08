@@ -1,4 +1,4 @@
-package roon.practice.be.infra.storage;
+package roon.practice.be.infra.data;
 
 import java.util.UUID;
 import org.springframework.stereotype.Repository;

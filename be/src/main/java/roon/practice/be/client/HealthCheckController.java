@@ -1,4 +1,4 @@
-package roon.practice.be.interfaces;
+package roon.practice.be.client;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

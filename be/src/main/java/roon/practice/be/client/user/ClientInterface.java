@@ -1,4 +1,4 @@
-package roon.practice.be.interfaces.client;
+package roon.practice.be.client.user;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
