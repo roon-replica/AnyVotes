@@ -1,5 +1,6 @@
 package roon.practice.be.infra.data;
 
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
 import roon.practice.be.business.poll.Poll;
@@ -28,5 +29,10 @@ public class PollRepositoryImpl extends PollRepository {
 	@Override
 	public void delete(Poll poll) {
 		pollJpaRepository.delete(poll);
+	}
+
+	@Override
+	public Optional<Poll> findById(PollId id) {
+		return pollJpaRepository.findById(id);
 	}
 }
