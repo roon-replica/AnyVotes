@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import roon.practice.be.business.poll.selection.Selection;
+import roon.practice.be.business.EventThreadLocal;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,5 +37,15 @@ public class Poll {
 		this.title = title;
 		this.host = host;
 		this.selectionList = selectionList;
+
+		EventThreadLocal.register(new PollCreatedEvent(id, title, host, selectionList));
+	}
+
+	public void update(String title, String host, List<Selection> selectionList){
+		this.title = title;
+		this.host = host;
+		this.selectionList = selectionList;
+
+		EventThreadLocal.register(new PollUpdatedEvent(id, title, host, selectionList));
 	}
 }

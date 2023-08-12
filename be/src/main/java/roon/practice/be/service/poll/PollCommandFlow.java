@@ -4,10 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.core.GenericHandler;
 import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.transaction.annotation.Transactional;
 import roon.practice.be.business.poll.Poll;
 import roon.practice.be.business.poll.PollRepository;
 
 import static roon.practice.be.service.poll.PollCommandChannels.*;
+
 
 @Configuration
 public class PollCommandFlow {
@@ -18,6 +20,7 @@ public class PollCommandFlow {
 		this.pollRepository = pollRepository;
 	}
 
+	@Transactional
 	@Bean
 	public IntegrationFlow createPollFlow() {
 		return IntegrationFlow.from(CREATE_POLL_COMMAND.channelName)
@@ -29,6 +32,7 @@ public class PollCommandFlow {
 				.get();
 	}
 
+	@Transactional
 	@Bean
 	public IntegrationFlow updatePollFlow() {
 		return IntegrationFlow.from(UPDATE_POLL_COMMAND.channelName)

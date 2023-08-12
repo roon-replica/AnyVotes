@@ -16,9 +16,9 @@ import roon.practice.be.service.Command;
 @Configuration
 public class CommandConfig {
 
-	public static final String COMMAND_CHANNEL = "CommandChannel";
+	public static final String COMMAND_GATEWAY_CHANNEL = "CommandChannel";
 
-	@Bean(COMMAND_CHANNEL)
+	@Bean(COMMAND_GATEWAY_CHANNEL)
 	public MessageChannel commandChannel() {
 		return new DirectChannel();
 	}
