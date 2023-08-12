@@ -1,10 +1,12 @@
 package roon.practice.be.service.poll;
 
 import java.util.List;
+import lombok.ToString;
 import roon.practice.be.business.poll.PollId;
 import roon.practice.be.business.poll.selection.Selection;
 import roon.practice.be.service.Command;
 
+@ToString
 public class UpdatePollCommand extends Command {
 
 	public final PollId id;
