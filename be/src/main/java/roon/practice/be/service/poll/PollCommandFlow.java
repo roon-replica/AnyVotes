@@ -23,7 +23,7 @@ public class PollCommandFlow {
 		return IntegrationFlow.from(CREATE_POLL_COMMAND.channelName)
 				.handle((GenericHandler<?>) (payload, header) -> {
 					CreatePollCommand command = (CreatePollCommand) payload;
-					Poll poll = new Poll(pollRepository.id(), command.title, command.host, command.selectionList);
+					Poll poll = new Poll(pollRepository.id(), command.title(), command.host(), command.selectionList());
 					return pollRepository.save(poll).getId();
 				})
 				.get();
@@ -34,7 +34,7 @@ public class PollCommandFlow {
 		return IntegrationFlow.from(UPDATE_POLL_COMMAND.channelName)
 				.handle((GenericHandler<?>) (payload, header) -> {
 					UpdatePollCommand command = (UpdatePollCommand) payload;
-					Poll poll = pollRepository.findById(command.id)
+					Poll poll = pollRepository.findById(command.id())
 							.orElseThrow(IllegalArgumentException::new);
 					return pollRepository.save(poll).getId();
 				})

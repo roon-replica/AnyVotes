@@ -11,7 +11,6 @@ import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.messaging.MessageChannel;
 import roon.practice.be.service.Command;
-import roon.practice.be.service.poll.CreatePollCommand;
 
 @Slf4j
 @Configuration
@@ -31,7 +30,7 @@ public class CommandConfig {
 				.channel(channels -> channels.executor(Executors.newCachedThreadPool()))
 				.<Command, String>route(command -> command.getClass().getSimpleName(), mapping ->
 						mapping.subFlowMapping(CREATE_POLL_COMMAND.channelName, sf -> sf.channel(CREATE_POLL_COMMAND.channelName))
-						.subFlowMapping(UPDATE_POLL_COMMAND.channelName, sf -> sf.channel(UPDATE_POLL_COMMAND.channelName))
+								.subFlowMapping(UPDATE_POLL_COMMAND.channelName, sf -> sf.channel(UPDATE_POLL_COMMAND.channelName))
 				).get();
 	}
 }
