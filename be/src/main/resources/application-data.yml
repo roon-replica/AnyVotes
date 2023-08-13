@@ -4,6 +4,13 @@ spring:
     url: jdbc:h2:~/test
     username: sa
     password:
+    hikari:
+      auto-commit: false
+      connection-test-query: SELECT 1
+      minimum-idle: 3
+      maximum-pool-size: 10
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      pool-name: hikari-pool-roon
   h2:
     console:
       enabled: true
@@ -13,3 +20,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
