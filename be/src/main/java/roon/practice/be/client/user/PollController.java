@@ -20,12 +20,16 @@ public class PollController {
 
 	@PostMapping("/create-poll")
 	public PollId createPoll(@RequestBody CreatePollRequest request) {
-		return commandGateway.send(new CreatePollCommand(request.title(), request.host(), request.selectionList()));
+		return commandGateway.send(new CreatePollCommand(request.title(), request.host(), request.selectionList(), request.startAt(), request.endAt(),
+				request.isMultiSelectable())
+		);
 	}
 
 	@PostMapping("/update-poll")
 	public PollId updatePoll(@RequestBody UpdatePollRequest request) {
-		return commandGateway.send(new UpdatePollCommand(new PollId(request.id()), request.title(), request.host(), request.selectionList()));
+		return commandGateway.send(
+				new UpdatePollCommand(new PollId(request.id()), request.title(), request.host(), request.selectionList(), request.startAt(),
+						request.endAt(), request.isMultiSelectable()));
 	}
 
 }
