@@ -22,7 +22,8 @@ public class PollCommandHandler {
 		log.info("[createPoll] payload={}", payload);
 
 		CreatePollCommand command = (CreatePollCommand) payload;
-		Poll poll = new Poll(pollRepository.id(), command.title(), command.host(), command.selectionList());
+		Poll poll = new Poll(pollRepository.id(), command.title(), command.host(), command.selectionList(), command.startAt(), command.endAt(),
+				command.isMultiSelectable());
 		return pollRepository.save(poll).getId();
 	}
 
@@ -33,6 +34,8 @@ public class PollCommandHandler {
 		UpdatePollCommand command = (UpdatePollCommand) payload;
 		Poll poll = pollRepository.findById(command.id())
 				.orElseThrow(IllegalArgumentException::new);
+
+		poll.update(command.title(), command.host(), command.selectionList(), command.startAt(), command.endAt(), command.isMultiSelectable());
 		return pollRepository.save(poll).getId();
 	}
 }
