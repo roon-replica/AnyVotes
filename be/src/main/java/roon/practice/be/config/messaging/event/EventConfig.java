@@ -23,8 +23,8 @@ public class EventConfig {
 
 	@Bean
 	public IntegrationFlow routeEvent() {
-		return IntegrationFlow.from(EventChannels.POLL_CREATED_EVENT.channelName)
-				.log()
+		return IntegrationFlow.from(eventChannel())
+				.log("[Routing Event]")
 				.channel(channels -> channels.executor(Executors.newCachedThreadPool()))
 				.<Event, String>route(event -> event.getClass().getSimpleName(), mapping ->
 						mapping.subFlowMapping(EventChannels.POLL_CREATED_EVENT.channelName, sf -> sf.channel(EventChannels.POLL_CREATED_EVENT.channelName))

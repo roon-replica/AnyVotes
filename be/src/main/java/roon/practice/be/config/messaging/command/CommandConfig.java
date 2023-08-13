@@ -26,11 +26,12 @@ public class CommandConfig {
 	@Bean
 	public IntegrationFlow routeCommand() {
 		return IntegrationFlow.from(commandChannel())
-				.log()
+				.log("[Routing Command]")
 				.channel(channels -> channels.executor(Executors.newCachedThreadPool()))
 				.<Command, String>route(command -> command.getClass().getSimpleName(), mapping ->
 						mapping.subFlowMapping(CREATE_POLL_COMMAND.channelName, sf -> sf.channel(CREATE_POLL_COMMAND.channelName))
 								.subFlowMapping(UPDATE_POLL_COMMAND.channelName, sf -> sf.channel(UPDATE_POLL_COMMAND.channelName))
-				).get();
+				)
+				.get();
 	}
 }

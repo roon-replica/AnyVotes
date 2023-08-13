@@ -20,10 +20,11 @@ public class CommandHandlerAop {
 		this.eventGateway = eventGateway;
 	}
 
-	@Before("bean(pollCommandFlow)")
+//	@Before("bean(test)")
+	@Before("@annotation(org.springframework.transaction.annotation.Transactional)")
 	public void before() {
 		Optional<TransactionSynchronization> eventsTransactionSynchronization = TransactionSynchronizationManager.getSynchronizations().stream()
-				.filter(transactionSynchronization -> transactionSynchronization instanceof EventsTransactionSynchronization)
+				.filter(EventsTransactionSynchronization.class::isInstance)
 				.findAny();
 
 		if (eventsTransactionSynchronization.isEmpty()) {
@@ -36,7 +37,7 @@ public class CommandHandlerAop {
 		@Override
 		public void afterCommit() {
 			var event = EventThreadLocal.getEvent();
-			eventGateway.send(event);
+			if(event != null) eventGateway.send(event);
 		}
 
 		@Override

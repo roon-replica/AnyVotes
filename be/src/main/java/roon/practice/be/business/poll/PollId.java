@@ -8,6 +8,7 @@ import roon.practice.be.business.Id;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PollId extends Id {
+
 	public PollId(String id) {
 		super(id);
 	}
