@@ -7,5 +7,5 @@ import roon.practice.be.config.messaging.event.EventConfig;
 @MessagingGateway(defaultRequestChannel = EventConfig.EVENT_GATEWAY_CHANNEL)
 public interface EventGateway {
 
-	<T> T send(Event event);
+	void send(Event event);
 }

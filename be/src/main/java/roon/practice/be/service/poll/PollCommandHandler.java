@@ -1,12 +1,16 @@
 package roon.practice.be.service.poll;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roon.practice.be.business.poll.Poll;
+import roon.practice.be.business.poll.PollId;
 import roon.practice.be.business.poll.PollRepository;
 
+@Slf4j
 @Service
 public class PollCommandHandler {
+
 	private final PollRepository pollRepository;
 
 	public PollCommandHandler(PollRepository pollRepository) {
@@ -14,17 +18,21 @@ public class PollCommandHandler {
 	}
 
 	@Transactional
-	public void createPoll(Object payload){
+	public PollId createPoll(Object payload) {
+		log.info("[createPoll] payload={}", payload);
+
 		CreatePollCommand command = (CreatePollCommand) payload;
 		Poll poll = new Poll(pollRepository.id(), command.title(), command.host(), command.selectionList());
-		pollRepository.save(poll).getId();
+		return pollRepository.save(poll).getId();
 	}
 
 	@Transactional
-	public void updatePoll(Object payload){
+	public PollId updatePoll(Object payload) {
+		log.info("[updatePoll] payload={}", payload);
+
 		UpdatePollCommand command = (UpdatePollCommand) payload;
 		Poll poll = pollRepository.findById(command.id())
 				.orElseThrow(IllegalArgumentException::new);
-		pollRepository.save(poll).getId();
+		return pollRepository.save(poll).getId();
 	}
 }

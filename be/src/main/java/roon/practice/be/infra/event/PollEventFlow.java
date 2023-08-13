@@ -15,7 +15,17 @@ public class PollEventFlow {
 	public IntegrationFlow handlePostCreatedEvent() {
 		return IntegrationFlow.from(EventChannels.POLL_CREATED_EVENT.channelName)
 				.handle((GenericHandler<?>) (payload, header) -> {
-					log.info("Reached handler for PollCreatedEvent, header = {}, payload={}", header, payload);
+					log.info("Reached handler for {}, header = {}, payload={}", EventChannels.POLL_CREATED_EVENT.channelName, header, payload);
+					return null;
+				})
+				.get();
+	}
+
+	@Bean
+	public IntegrationFlow handlePostUpdatedEvent() {
+		return IntegrationFlow.from(EventChannels.POLL_UPDATED_EVENT.channelName)
+				.handle((GenericHandler<?>) (payload, header) -> {
+					log.info("Reached handler for {}, header = {}, payload={}", EventChannels.POLL_UPDATED_EVENT.channelName, header, payload);
 					return null;
 				})
 				.get();

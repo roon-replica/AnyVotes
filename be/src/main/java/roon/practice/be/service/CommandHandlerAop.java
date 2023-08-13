@@ -20,7 +20,6 @@ public class CommandHandlerAop {
 		this.eventGateway = eventGateway;
 	}
 
-//	@Before("bean(test)")
 	@Before("@annotation(org.springframework.transaction.annotation.Transactional)")
 	public void before() {
 		Optional<TransactionSynchronization> eventsTransactionSynchronization = TransactionSynchronizationManager.getSynchronizations().stream()
