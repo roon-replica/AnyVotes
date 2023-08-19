@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,5 +45,10 @@ public class PollController {
 	public List<PollDto> getPolls(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") @Min(1) @Max(10) int pageSize) {
 		return pollFacade.getPolls(page, pageSize);
+	}
+
+	@GetMapping("/polls/{pollId}")
+	public PollDto getPoll(@PathVariable String pollId) {
+		return pollFacade.getPoll(pollId);
 	}
 }
