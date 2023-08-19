@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import roon.practice.be.business.exception.ResourceNotFound;
 import roon.practice.be.business.poll.PollId;
-import roon.practice.be.client.user.response.PollDto;
+import roon.practice.be.client.user.response.PollResponse;
 
 @Service
 public class PollFacade {
@@ -16,19 +16,19 @@ public class PollFacade {
 		this.pollRepository = pollRepository;
 	}
 
-	public List<PollDto> getPolls(int page, int pageSize) {
+	public List<PollResponse> getPolls(int page, int pageSize) {
 		var polls = pollRepository.findAll(PageRequest.of(page, pageSize));
 		return polls.stream()
-				.map(poll -> new PollDto(
+				.map(poll -> new PollResponse(
 						poll.getId().toString(), poll.getTitle(), poll.getHost(), poll.getSelectionList(), poll.getStartAt(), poll.getEndAt(),
 						poll.isMultiSelectable())
 				)
 				.toList();
 	}
 
-	public PollDto getPoll(String pollId) {
+	public PollResponse getPoll(String pollId) {
 		return pollRepository.findById(new PollId(pollId))
-				.map(poll -> new PollDto(
+				.map(poll -> new PollResponse(
 						poll.getId().toString(), poll.getTitle(), poll.getHost(), poll.getSelectionList(), poll.getStartAt(), poll.getEndAt(),
 						poll.isMultiSelectable())
 				)

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import roon.practice.be.business.poll.PollId;
 import roon.practice.be.client.user.request.CreatePollRequest;
 import roon.practice.be.client.user.request.UpdatePollRequest;
-import roon.practice.be.client.user.response.PollDto;
+import roon.practice.be.client.user.response.PollResponse;
 import roon.practice.be.service.CommandGateway;
 import roon.practice.be.service.poll.CreatePollCommand;
 import roon.practice.be.service.poll.UpdatePollCommand;
@@ -42,13 +42,13 @@ public class PollController {
 	}
 
 	@GetMapping("/polls")
-	public List<PollDto> getPolls(@RequestParam(defaultValue = "0") int page,
+	public List<PollResponse> getPolls(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") @Min(1) @Max(10) int pageSize) {
 		return pollFacade.getPolls(page, pageSize);
 	}
 
 	@GetMapping("/polls/{pollId}")
-	public PollDto getPoll(@PathVariable String pollId) {
+	public PollResponse getPoll(@PathVariable String pollId) {
 		return pollFacade.getPoll(pollId);
 	}
 }
