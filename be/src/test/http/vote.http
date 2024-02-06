@@ -1,0 +1,26 @@
+# curl -X 'POST'
+#  'http://localhost:8081/api/create-vote'
+#  -H 'accept: */*'
+#  -H 'Content-Type: application/json'
+#  -d '{ "title": "test", "host":"test", "optionList":[], "startAt":"2024-02-06T12:34:56.789", "endAt": "2024-02-06T12:34:56.789", "isMultiSelectable": false}'
+POST http://localhost:8081/api/create-voteForm
+accept: */*
+Content-Type: application/json
+
+{
+  "title": "test",
+  "host": "test",
+  "optionList": [{"title": "option1","type": "TEXT", "input": "option1 input"}],
+  "startAt": "2024-02-06T12:34:56.789",
+  "endAt": "2024-02-06T12:34:56.789",
+  "isMultiSelectable": false
+}
+
+###
+# curl -X GET http://localhost:8081/api/votes
+GET http://localhost:8081/api/voteForms
+
+###
+
+
+
