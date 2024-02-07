@@ -8,11 +8,19 @@
   - [x] 투표하기 api 
 
 - [ ] 로그인한 유저만 투표가능하도록?
-  - [ ] 계정 개념 추가 
+  - [ ] 계정 개념 추가
+  - [ ] OAuth 로그인, 회원 정보 db에 저장
+
+- [ ] 배포
+  - [ ] 로깅
+  - [ ] 모니터링
+  - [ ] aws? / ncloud?
 
 
 ### 기술 연습
-- spring (web)
+- 아키텍처 
+- spring
 - database (mongodb)
+  - [ ] mongodb 설정 의미 이해, 적용
 - 화면 개발 (react.js, next.js)
 - monorepo (multi module)
