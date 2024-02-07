@@ -31,6 +31,8 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
+    implementation("com.google.protobuf:protobuf-java:3.25.2")
+
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

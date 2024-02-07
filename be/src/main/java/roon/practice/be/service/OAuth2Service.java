@@ -37,7 +37,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
 		if (account.isEmpty()) {
 			accountRepository.save(new Account(registrationId, "google", attributes.getEmail()));
 		} else {
-			throw new AccountAlreadyExistException("account already exists");
+			log.info("account already exists");
 		}
 
 		return oauth2User;
