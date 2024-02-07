@@ -12,17 +12,21 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.web.SecurityFilterChain;
+import roon.practice.be.service.OAuth2Service;
 
 
 // https://medium.com/@iyusubov444/springboot3-oauth2-login-default-config-part-1-c35ca2934818
+// https://medium.com/@iyusubov444/springboot3-oauth2-login-save-user-info-part-2-f36f5aa5d458
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
 	private final GoogleClientProperties googleClientProperties;
+	private final OAuth2Service oAuth2Service;
 
-	public SecurityConfig(GoogleClientProperties googleClientProperties) {
+	public SecurityConfig(GoogleClientProperties googleClientProperties, OAuth2Service oAuth2Service) {
 		this.googleClientProperties = googleClientProperties;
+		this.oAuth2Service = oAuth2Service;
 	}
 
 	@Bean
@@ -30,29 +34,7 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests(authorize -> authorize
 						.anyRequest().authenticated()
-				).oauth2Login(Customizer.withDefaults());
+				).oauth2Login(oauth2 -> oauth2.userInfoEndpoint(endpoint ->  endpoint.userService(oAuth2Service)));
 		return http.build();
-	}
-
-	@Bean
-	public ClientRegistrationRepository clientRegistrationRepository() {
-		return new InMemoryClientRegistrationRepository(this.googleClientRegistration());
-	}
-
-	private ClientRegistration googleClientRegistration() {
-		return ClientRegistration.withRegistrationId("google")
-				.clientId(googleClientProperties.getClientId())
-				.clientSecret(googleClientProperties.getClientSecret())
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
-				.scope(googleClientProperties.getScope())
-				.authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-				.tokenUri("https://www.googleapis.com/oauth2/v4/token")
-				.userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-				.userNameAttributeName(IdTokenClaimNames.SUB)
-				.jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-				.clientName("Google")
-				.build();
 	}
 }
